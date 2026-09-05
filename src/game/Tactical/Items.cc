@@ -48,6 +48,7 @@
 #include <map>
 #include <set>
 #include <stdexcept>
+#include <algorithm>
 
 constexpr UINT8 ANY_MAGSIZE = 255; // magic number for FindAmmo's mag_size parameter
 
@@ -2578,14 +2579,7 @@ void CreateItem(UINT16 const usItem, INT8 const bStatus, OBJECTTYPE* const pObj)
 {
 	auto checkedStatus = [](INT8 status)
 	{
-		if (status < 1 || status > 100)
-		{
-			SLOGE("CreateItem: Status outside interval [1, 100]");
-			// Since we have no idea what was intended here, just
-			// choose some valid value instead.
-			status = 70;
-		}
-		return status;
+	    return std::clamp<INT8>(status, 1, 100);
 	};
 
 	auto item = GCM->getItem(usItem);
