@@ -1176,6 +1176,31 @@ void GetPolledKeyboardInput(UIEventKind* puiNewEvent)
 	}
 }
 
+UINT16 usitem = 1623;
+
+void CheatCreateItem( )
+{
+	if ( gusSelectedSoldier != NOBODY )
+	{
+		OBJECTTYPE newobj;
+		CreateItem( usitem, 100, &newobj );
+
+		if ( !AutoPlaceObject( gusSelectedSoldier, &newobj, FALSE ) )
+			AddItemToPool( gusSelectedSoldier->sGridNo, &newobj, 1, 0, 0, -1 );
+	}
+}
+
+void ItemCreationCallBack( UINT8 ubResult )
+{
+	if (ubResult == MSG_BOX_RETURN_OK && wcscmp(gszMsgBoxInputString,L"") > 0)
+	{
+		usitem = _wtoi( gszMsgBoxInputString );
+		CheatCreateItem( );
+
+	}
+	memset(gszMsgBoxInputString,0,sizeof(gszMsgBoxInputString));
+}
+
 void TacticalViewPortTouchCallbackTB(MOUSE_REGION* region, UINT32 reason) {
 	static SOLDIERTYPE* gLastDownUIFullTarget = NULL;
 
@@ -1415,6 +1440,23 @@ static void HandleModNone(UINT32 const key, UIEventKind* const new_event)
 				}
 				EndMultiSoldierSelection(TRUE);
 			}
+			break;
+		case '.':
+			if (fAlt)
+			{
+				if ( CHEATER_CHEAT_LEVEL( ) )
+ 					{
+					if ( gusSelectedSoldier != NOBODY )
+					{
+						DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, L"Enter ItemID", GAME_SCREEN, MSG_BOX_FLAG_INPUTBOX, ItemCreationCallBack, NULL );
+					}
+				}
+			}
+			else
+			{
+				SetScopeMode( usMapPos );
+			}
+
 			break;
 
 		case '`': ToggleTacticalPanels(); break;
