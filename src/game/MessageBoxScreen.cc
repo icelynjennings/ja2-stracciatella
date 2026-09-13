@@ -494,6 +494,10 @@ ScreenID MessageBoxScreenHandle()
 					case '4': gMsgBox.bHandled = MSG_BOX_RETURN_4; break;
 				}
 				break;
+
+			case MSG_BOX_FLAG_INPUTBOX:
+
+				break;
 			default:
 				break;
 		}

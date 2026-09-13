@@ -1830,6 +1830,7 @@ MessageBoxFlags = {
 	MSG_BOX_FLAG_OKSKIP = 6,
 	MSG_BOX_FLAG_GENERICCONTRACT = 7,
 	MSG_BOX_FLAG_GENERIC = 8,
+	MSG_BOX_FLAG_INPUTBOX = 9,
 }
 
 MessageBoxReturnValue = {
@@ -1840,4 +1841,3 @@ MessageBoxReturnValue = {
 	MSG_BOX_RETURN_CONTRACT = 4,
 	MSG_BOX_RETURN_LIE = 5,
 }
-
